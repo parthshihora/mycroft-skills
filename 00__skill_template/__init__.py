@@ -24,6 +24,18 @@ class TemplateSkill(MycroftSkill):
         # Initialize working variables used within the skill.
         self.count = 0
 
+    def initialize(self):
+        # Creating GreetingsIntent requiring Greetings vocab
+        greetings = IntentBuilder("GreetingsIntent")
+                           .require("Hello").build()
+        # Associating a callback with the Intent
+        self.register_intent(greetings, self.handle_greetings)
+
+    def handle_greetings(self):
+        # Sending a command to mycroft, speak Greetings Dialog
+        self.speak_dialog("hello.world")
+
+
     # The "handle_xxxx_intent" function is triggered by Mycroft when the
     # skill's intent is matched.  The intent is defined by the IntentBuilder()
     # pieces, and is triggered when the user's utterance matches the pattern
